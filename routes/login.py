@@ -65,7 +65,6 @@ async def login_post(request:Request ,response:Response,db:AsyncSession=Depends(
             secure=True,         # required for HTTPS
             samesite="None"      # allow cross-site requests
 )
-return response
 
 
         return response
