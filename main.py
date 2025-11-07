@@ -10,6 +10,9 @@ from routes.fullPost import fullPost
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
 @app.on_event("startup")
 async def startup_event():
     async with engine.begin() as conn:
