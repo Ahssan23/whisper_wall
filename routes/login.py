@@ -25,7 +25,7 @@ class Login(BaseModel):
 
 @login.get("/login", response_class=HTMLResponse)
 def login_get(request: Request):
-    return template.TemplateResponse('login.html', {"request": request})
+    return template.TemplateResponse("login.html", {"request": request})
 
 
 @login.post("/login", response_class=HTMLResponse)
@@ -34,7 +34,7 @@ async def login_post(
     response: Response,
     db: AsyncSession = Depends(get_db),
     username: str = Form(...),
-    password: str = Form(...)
+    password: str = Form(...),
 ):
     # Prepare user data
     user_data = Login(username=username, password=password)
@@ -45,31 +45,30 @@ async def login_post(
     if not user:
         return template.TemplateResponse(
             "login.html",
-            {"request": request, "message": "User not found, try again"}
+            {"request": request, "message": "User not found, try again"},
         )
 
-    hash = user.password.encode('utf-8')
-    byte = password.encode("utf-8")
+    hash_pw = user.password.encode("utf-8")
+    byte_pw = password.encode("utf-8")
 
-    if bcrypt.checkpw(byte, hash):
+    if bcrypt.checkpw(byte_pw, hash_pw):
         payload = {
             "username": user.name,
-            "exp": datetime.now(timezone.utc) + timedelta(minutes=10)
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=10),
         }
-        token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm='HS256')
-    
-        response = RedirectResponse(url='/', status_code=302)
+        token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
+
+        response = RedirectResponse(url="/", status_code=302)
         response.set_cookie(
             key="token",
             value=token,
-            httponly=True,
-            secure=True,
-            samesite="None"
+            httponly=True,  # cannot be accessed via JS
+            secure=True,    # required for HTTPS
+            samesite="None" # allow cross-site requests
         )
         return response
 
-    else:
-        return template.TemplateResponse(
-            "login.html",
-            {"request": request, "message": "Login failed, try again"}
-        )
+    return template.TemplateResponse(
+        "login.html",
+        {"request": request, "message": "Login failed, try again"},
+    )
