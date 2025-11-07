@@ -7,6 +7,8 @@ from routes.upload import post
 from routes.likes import like
 from routes.comment import comment
 from routes.fullPost import fullPost
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI()
 
