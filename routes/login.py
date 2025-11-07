@@ -52,21 +52,21 @@ async def login_post(
     byte = password.encode("utf-8")
 
     if bcrypt.checkpw(byte, hash):
-    payload = {
-        "username": user.name,
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=10)
-    }
-    token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm='HS256')
-
-    response = RedirectResponse(url='/', status_code=302)
-    response.set_cookie(
-        key="token",
-        value=token,
-        httponly=True,
-        secure=True,
-        samesite="None"
-    )
-    return response
+        payload = {
+            "username": user.name,
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=10)
+        }
+        token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm='HS256')
+    
+        response = RedirectResponse(url='/', status_code=302)
+        response.set_cookie(
+            key="token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="None"
+        )
+        return response
 
     else:
         return template.TemplateResponse(
