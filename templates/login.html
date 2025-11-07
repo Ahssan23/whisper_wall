@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - WhisperWall</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#0d0d0d] text-gray-200 min-h-screen flex items-center justify-center font-sans">
+
+  <div class="w-full max-w-sm bg-[#141414] border border-[#242424] shadow-xl p-8 rounded-2xl">
+
+    <h1 class="text-center text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
+      WhisperWall
+    </h1>
+    <p class="text-center text-gray-500 text-sm mb-8">Login to continue</p>
+
+    <form action="login" method="POST" class="flex flex-col space-y-5">
+
+      <div>
+        <label class="text-sm text-gray-400">Username</label>
+        <input type="text" name="username"
+          class="w-full bg-[#1b1b1b] border border-[#2a2a2a] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition"
+          placeholder="Enter username" required>
+      </div>
+
+      <div>
+        <label class="text-sm text-gray-400">Password</label>
+        <input type="password" name="password"
+          class="w-full bg-[#1b1b1b] border border-[#2a2a2a] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition"
+          placeholder="Enter password" required>
+      </div>
+
+      <button type="submit"
+        class="w-full py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition font-semibold shadow-lg shadow-blue-900/30">
+        Login
+      </button>
+
+    </form>
+
+    {% if message %}
+      <p class="text-center text-red-500 text-sm mt-4">{{ message }}</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

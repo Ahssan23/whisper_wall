@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#0d0d0d] text-gray-200 font-sans">
+
+    <div class="max-w-lg mx-auto pt-16 px-6">
+        <h1 class="text-3xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+            Create a Post
+        </h1>
+
+        <form action="/post" method="POST" class="mt-10 bg-[#141414] p-8 rounded-2xl border border-[#242424] shadow-lg">
+
+            <label class="block text-sm mb-2">Title</label>
+            <input type="text" name="title"
+                class="w-full bg-[#1b1b1b] border border-[#2a2a2a] rounded-lg py-2 px-3 focus:outline-none focus:border-purple-500 transition"
+                placeholder="Write a title..." required>
+
+            <label class="block text-sm mt-6 mb-2">Content</label>
+            <textarea name="content"
+                class="w-full bg-[#1b1b1b] border border-[#2a2a2a] rounded-lg py-2 px-3 h-32 resize-none focus:outline-none focus:border-purple-500 transition"
+                placeholder="Say something..." required></textarea>
+
+            <button type="submit"
+                class="w-full mt-8 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition shadow-lg shadow-blue-900/30 font-semibold">
+                Post
+            </button>
+        </form>
+
+        {% if message %}
+            <p class="text-center text-sm text-gray-400 mt-6">{{ message }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
