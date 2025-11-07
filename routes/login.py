@@ -58,7 +58,15 @@ async def login_post(request:Request ,response:Response,db:AsyncSession=Depends(
         token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm='HS256')
 
         response = RedirectResponse(url='/', status_code=302)
-        response.set_cookie(key="token", value=token)
+        response.set_cookie(
+            key="token",
+            value=token,
+            httponly=True,       # cannot be accessed via JS
+            secure=True,         # required for HTTPS
+            samesite="None"      # allow cross-site requests
+)
+return response
+
 
         return response
     
