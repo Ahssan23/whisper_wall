@@ -11,7 +11,6 @@ from routes.fullPost import fullPost
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
 
 @app.on_event("startup")
 async def startup_event():
